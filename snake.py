@@ -1,7 +1,7 @@
 '''
 Snake game.
 Authors:
-Bryan Brittingham, Terrell Mills
+Terrell Mills, Bryan Brittingham
 '''
 
 import pygame
@@ -30,7 +30,7 @@ DIRECTION_DOWN = (0, 1)
 # Background color of the snake grid.
 COLOR_BACKGROUND = (20, 168, 92)  # rgb color for green
 # This is the color of the snake's head. 
-COLOR_SNAKE_HEAD = (255, 0, 0)      # rgb color for red
+COLOR_SNAKE_HEAD = (208, 41, 20)      # rgb color for red
 # This is the color of the rest of the snake.
 COLOR_SNAKE = (0, 255, 0)           # rgb color for green
 # This is the color for the snake's food.
@@ -51,15 +51,15 @@ def get_direction(previous_direction, event_key):
     elif event_key == pygame.K_RIGHT:
         return DIRECTION_RIGHT
     elif event_key == pygame.K_DOWN:
-        return DIRECTION_DOWN    
+        return DIRECTION_DOWN
     return previous_direction
-
 def create_food_position():
     """Returns a random 2-tuple in the grid where the food should be located.
     The first element is the x position. Must be an int between 0 and GRID_WIDTH - 1, inclusively.
     The second element is the y position. Must be an int between 0 and GRID_HEIGHT - 1, inclusively.
     """
-    return
+    return random.randint(0, GRID_WIDTH -1), random.randint(0, GRID_HEIGHT -1)
+
 
 def snake_ate_food(snake, food):
     """Returns whether food was eaten by the snake.
@@ -88,8 +88,9 @@ def snake_intersected_body(snake):
     The snake ran into itself if the position of the head is the same as the position
     of any of its body segments.
     """
-    if snake[0] <= snake[-1]:
-        return True
+    for body in range(1, len(snake)):
+        if snake[0] == snake[body]:
+            return True
     return False
 
 def get_score(snake):
@@ -98,14 +99,17 @@ def get_score(snake):
     The user earns 10 points for each of the segments in the snake.
     For example, if the snake has 25 segments, the score is 250.
     """
-    return 0
+    score = 0
+    if len(snake) > 10:
+        score += len(snake) * 10
+    return (score)
 
 def get_game_over_text(score):
     """Returns the text to draw on the screen after the game is over.
     This text should contain 'Game Over' as well as the score.
     score - integer representing the current score of the game.
     """
-    return 'Game Over.'
+    return 'Game Over        ' +'score: ' + str(score)
 
 def get_snake_speed(snake):
     """Return the number of cells the snake should travel in one second.
@@ -269,3 +273,4 @@ def start_game():
 
 # Start the snake game.
 start_game()
+
