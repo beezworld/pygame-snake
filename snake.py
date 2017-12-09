@@ -103,7 +103,7 @@ def get_score(snake):
     """
     score = 0
     #if len(snake) > 10:
-    score += (len(snake) - 10) * 10
+    score += (len(snake)) * 10
     return (score)
 
 def get_game_over_text(score):
@@ -119,10 +119,9 @@ def get_snake_speed(snake):
     The speed at the beginning of the game should be 5. Once the snake has eaten 10 pieces of food,
     the speed of the game should increase (by how much is up to you).
     """
-    speed = 5
-    if len(snake) >= 15:
-        speed += len(snake) - 10
-        speed +=  speed * 0.2
+    speed = 0
+    if len(snake) >= 10:
+        speed += len(snake) - 5
     return speed
  
 def move_snake(snake, direction, food):
